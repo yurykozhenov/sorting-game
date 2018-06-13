@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+import SessionContainer from './session/SessionContainer/SessionContainer';
+import SortingGameContainer from './sortingGame/SortingGameContainer/SortingGameContainer';
 
-export default App;
+const App = ({ sessionId }) => (
+  <Switch>
+    <Route
+      exact
+      path="/"
+      render={() =>
+        sessionId ? <SortingGameContainer /> : <SessionContainer />
+      }
+    />
+  </Switch>
+);
+
+const mapStateToProps = state => ({
+  sessionId: state.session.sessionId,
+});
+
+export default connect(mapStateToProps)(App);

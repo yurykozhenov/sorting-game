@@ -1,0 +1,13 @@
+.sorting-list {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(auto-fill, 200px);
+}
+
+.sorting-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: green;
+  height: 200px;
+}
