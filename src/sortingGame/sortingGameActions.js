@@ -22,3 +22,24 @@ export const resumeSortingGame = () => {
 
   return { type: RESUME_SORTING_GAME, gameState };
 };
+
+export const MOVE_ITEM = 'MOVE_ITEM';
+
+// TODO: Maybe move to local state since it's related to UI representation only
+// If moveItem is removed, update numbers on SAVE_ORDER action
+export const moveItem = (number, targetIndex) => ({
+  type: MOVE_ITEM,
+  number,
+  targetIndex,
+});
+
+export const SAVE_ORDER = 'SAVE_ORDER';
+
+export const saveOrder = numbers => {
+  // TODO: Send to backend
+
+  return {
+    type: SAVE_ORDER,
+    numbers,
+  };
+};

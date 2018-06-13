@@ -1,0 +1,13 @@
+.sorting-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 76px;
+  border: 1px dashed gray;
+  background-color: white;
+  cursor: move;
+}
+
+.sorting-item.dragging {
+  opacity: 0.5;
+}

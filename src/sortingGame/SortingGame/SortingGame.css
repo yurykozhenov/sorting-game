@@ -1,13 +1,14 @@
-.sorting-list {
-  display: grid;
-  grid-gap: 8px;
-  grid-template-columns: repeat(auto-fill, 200px);
-}
-
-.sorting-item {
+.exit-button-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: green;
-  height: 200px;
+}
+
+.exit-button {
+  margin: 16px 0;
+  padding: 16px;
+  background: darkmagenta;
+  border-radius: 4px;
+  border: none;
+  text-transform: uppercase;
+  color: #ffffff;
 }

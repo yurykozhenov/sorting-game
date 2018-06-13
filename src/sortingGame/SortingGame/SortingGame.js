@@ -1,17 +1,20 @@
 import React from 'react';
 
 import './SortingGame.css';
+import SortingCanvas from '../SortingCanvas/SortingCanvas';
 
-const SortingGame = ({ destroySession, numbers }) => (
+const SortingGame = ({ destroySession, numbers, moveItem, saveOrder }) => (
   <div>
-    <div className="sorting-list">
-      {numbers.map((number, index) => (
-        <div className="sorting-item" key={index}>
-          {number}
-        </div>
-      ))}
+    <SortingCanvas
+      numbers={numbers}
+      moveItem={moveItem}
+      saveOrder={saveOrder}
+    />
+    <div className="exit-button-container">
+      <button className="exit-button" onClick={destroySession}>
+        Exit game
+      </button>
     </div>
-    <button onClick={destroySession}>Exit game</button>
   </div>
 );
 

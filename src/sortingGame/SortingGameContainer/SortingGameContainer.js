@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { destroySession } from '../../session/sessionActions';
-import { initSortingGame } from '../sortingGameActions';
+import { initSortingGame, moveItem, saveOrder } from '../sortingGameActions';
 import SortingGame from '../SortingGame/SortingGame';
 
 class SortingGameContainer extends Component {
@@ -23,7 +23,12 @@ const mapStateToProps = state => ({
   numbers: state.sortingGame.numbers,
 });
 
-const mapDispatchToProps = { destroySession, initSortingGame };
+const mapDispatchToProps = {
+  destroySession,
+  initSortingGame,
+  moveItem,
+  saveOrder,
+};
 
 export default connect(
   mapStateToProps,
