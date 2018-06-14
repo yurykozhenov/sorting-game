@@ -22,3 +22,9 @@ export const destroySession = () => {
 
   return { type: DESTROY_SESSION };
 };
+
+export const MARK_SESSION_AS_NOT_NEW = 'MARK_SESSION_AS_NOT_NEW';
+
+export const markSessionAsNotNew = () => {
+  return { type: MARK_SESSION_AS_NOT_NEW };
+};

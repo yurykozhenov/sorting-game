@@ -1,3 +1,13 @@
+.game-container {
+  min-height: 100%;
+}
+
+.victory-text {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
 .exit-button-container {
   display: flex;
   justify-content: center;
