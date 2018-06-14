@@ -1,27 +1,22 @@
-import axios from 'axios'; // eslint-disable-line no-unused-vars
+import axios from 'axios';
 
-// TODO: Change when backend is implemented
-const API_URL = '/api'; // eslint-disable-line no-unused-vars
+const API_URL = 'https://peaceful-shelf-64760.herokuapp.com';
 
 class SortingGameApi {
-  static async create(sessionId, numbers) {
-    // TODO: Uncomment when backend is implemented
-    // return axios.post(`${API_URL}/games`, { sessionId, numbers });
-    localStorage.setItem(sessionId, JSON.stringify(numbers));
+  static async create() {
+    return (await axios.post(`${API_URL}/games`)).data;
   }
 
-  static async get(sessionId) {
-    // TODO: Uncomment when backend is implemented
-    // return (await axios.get(`${API_URL}/games/${sessionId}`)).data;
-    const numbers = JSON.parse(localStorage.getItem(sessionId));
-
-    return { sessionId, numbers };
+  static async get(id) {
+    return (await axios.get(`${API_URL}/games/${id}`)).data;
   }
 
-  static async update(sessionId, numbers) {
-    // TODO: Uncomment when backend is implemented
-    // return axios.patch(`${API_URL}/games/${sessionId}`, { numbers });
-    localStorage.setItem(sessionId, JSON.stringify(numbers));
+  static async check(id) {
+    return (await axios.get(`${API_URL}/games/${id}/check`)).data;
+  }
+
+  static async update(id, array) {
+    return axios.patch(`${API_URL}/games`, { id, array });
   }
 }
 

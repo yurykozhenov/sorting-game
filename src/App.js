@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import SessionContainer from './session/SessionContainer/SessionContainer';
+import SessionContainer from './sortingGame/SessionContainer/SessionContainer';
 import SortingGameContainer from './sortingGame/SortingGameContainer/SortingGameContainer';
 
 const App = ({ sessionId }) => (
@@ -18,7 +18,7 @@ const App = ({ sessionId }) => (
 );
 
 const mapStateToProps = state => ({
-  sessionId: state.session.sessionId,
+  sessionId: state.sortingGame.sessionId,
 });
 
 export default connect(mapStateToProps)(App);

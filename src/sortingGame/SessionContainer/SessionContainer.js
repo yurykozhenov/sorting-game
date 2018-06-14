@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
-import { createSession } from '../sessionActions';
 import Session from '../Session/Session';
+import { initSortingGame } from '../sortingGameActions';
 
-const mapDispatchToProps = { createSession };
+const mapDispatchToProps = { initSortingGame };
 
 export default connect(
   null,

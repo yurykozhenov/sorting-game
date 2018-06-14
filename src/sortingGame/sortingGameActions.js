@@ -1,40 +1,46 @@
-import random from 'lodash/random';
-import range from 'lodash/range';
-import shuffle from 'lodash/shuffle';
-
-import { markSessionAsNotNew } from '../session/sessionActions';
-
 import SortingGameApi from './sortingGameApi';
+
+export const SESSION_ID_STORAGE_KEY = 'sessionId';
 
 export const INIT_SORTING_GAME = 'INIT_SORTING_GAME';
 
-const AVAILABLE_NUMBERS = range(1, 101);
+export const initSortingGame = () => async dispatch => {
+  const { array, id } = await SortingGameApi.create();
 
-export const initSortingGame = () => async (dispatch, getState) => {
-  const arrayLength = random(10, 30);
-  const numbers = shuffle(AVAILABLE_NUMBERS).slice(0, arrayLength);
+  localStorage.setItem(SESSION_ID_STORAGE_KEY, id);
 
-  const sessionId = getState().session.sessionId;
-  await SortingGameApi.create(sessionId, numbers);
-
-  dispatch({ type: INIT_SORTING_GAME, numbers });
-  dispatch(markSessionAsNotNew());
+  dispatch({ type: INIT_SORTING_GAME, numbers: array, sessionId: id });
 };
 
 export const RESUME_SORTING_GAME = 'RESUME_SORTING_GAME';
 
-export const resumeSortingGame = () => async (dispatch, getState) => {
-  const sessionId = getState().session.sessionId;
-  const game = await SortingGameApi.get(sessionId);
+export const resumeSortingGame = () => async dispatch => {
+  const sessionId = localStorage.getItem(SESSION_ID_STORAGE_KEY);
+  const { array } = await SortingGameApi.get(sessionId);
+  const gameState = await SortingGameApi.check(sessionId);
 
-  dispatch({ type: RESUME_SORTING_GAME, numbers: game.numbers });
+  dispatch({
+    type: RESUME_SORTING_GAME,
+    numbers: array,
+    sessionId,
+    isSorted: gameState.is_sorted,
+  });
 };
 
 export const SAVE_ORDER = 'SAVE_ORDER';
 
 export const saveOrder = numbers => async (dispatch, getState) => {
-  const sessionId = getState().session.sessionId;
+  const sessionId = getState().sortingGame.sessionId;
   await SortingGameApi.update(sessionId, numbers);
+  const gameState = await SortingGameApi.check(sessionId);
 
-  dispatch({ type: SAVE_ORDER, numbers });
+  dispatch({ type: SAVE_ORDER, numbers, isSorted: gameState.is_sorted });
+};
+
+export const EXIT_GAME = 'EXIT_GAME';
+
+export const exitGame = () => {
+  localStorage.removeItem(SESSION_ID_STORAGE_KEY);
+
+  return { type: EXIT_GAME };
 };

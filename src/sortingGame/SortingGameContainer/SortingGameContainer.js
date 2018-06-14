@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import update from 'immutability-helper';
 
-import { destroySession } from '../../session/sessionActions';
 import {
+  exitGame,
   initSortingGame,
   resumeSortingGame,
   saveOrder,
@@ -21,13 +21,8 @@ class SortingGameContainer extends Component {
   }
 
   async componentDidMount() {
-    if (this.props.isNewSession) {
-      await this.props.initSortingGame();
-      this.setState({ numbers: this.props.numbers });
-    } else {
-      await this.props.resumeSortingGame();
-      this.setState({ numbers: this.props.numbers });
-    }
+    await this.props.resumeSortingGame();
+    this.setState({ numbers: this.props.numbers });
   }
 
   moveItem = (number, targetIndex) => {
@@ -49,42 +44,30 @@ class SortingGameContainer extends Component {
   };
 
   render() {
-    const { sessionId, destroySession, saveOrder } = this.props;
+    const { sessionId, exitGame, saveOrder, isSorted } = this.props;
 
     return sessionId ? (
       <SortingGame
-        destroySession={destroySession}
+        exitGame={exitGame}
         numbers={this.state.numbers}
         moveItem={this.moveItem}
         saveOrder={saveOrder}
-        hasWon={this.checkWinCondition()}
+        isSorted={isSorted}
       />
     ) : (
       <Redirect to="/" />
     );
   }
-
-  checkWinCondition = () => {
-    const { numbers } = this.props;
-
-    for (let i = 0; i < numbers.length; i++) {
-      if (numbers[i] > numbers[i + 1]) {
-        return false;
-      }
-    }
-
-    return true;
-  };
 }
 
 const mapStateToProps = state => ({
-  sessionId: state.session.sessionId,
+  sessionId: state.sortingGame.sessionId,
   numbers: state.sortingGame.numbers,
-  isNewSession: state.session.isNewSession,
+  isSorted: state.sortingGame.isSorted,
 });
 
 const mapDispatchToProps = {
-  destroySession,
+  exitGame,
   initSortingGame,
   resumeSortingGame,
   saveOrder,

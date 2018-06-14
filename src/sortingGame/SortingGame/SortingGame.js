@@ -3,25 +3,21 @@ import React from 'react';
 import './SortingGame.css';
 import SortingCanvas from '../SortingCanvas/SortingCanvas';
 
-const SortingGame = ({
-  destroySession,
-  numbers,
-  moveItem,
-  saveOrder,
-  hasWon,
-}) => (
+const SortingGame = ({ exitGame, numbers, moveItem, saveOrder, isSorted }) => (
   <div
     className="game-container"
-    style={{ backgroundColor: hasWon ? 'lightgreen' : 'inherit' }}
+    style={{ backgroundColor: isSorted ? 'lightgreen' : 'inherit' }}
   >
     <SortingCanvas
       numbers={numbers}
       moveItem={moveItem}
       saveOrder={saveOrder}
     />
-    {hasWon && <div className="victory-text">Congratulations! You won! :)</div>}
+    {isSorted && (
+      <div className="victory-text">Congratulations! You won! :)</div>
+    )}
     <div className="exit-button-container">
-      <button className="exit-button" onClick={destroySession}>
+      <button className="exit-button" onClick={exitGame}>
         Exit game
       </button>
     </div>
