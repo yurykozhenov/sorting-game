@@ -21,7 +21,10 @@ class SortingGameContainer extends Component {
   }
 
   async componentDidMount() {
-    await this.props.resumeSortingGame();
+    if (this.props.numbers.length === 0) {
+      await this.props.resumeSortingGame();
+    }
+
     this.setState({ numbers: this.props.numbers });
   }
 

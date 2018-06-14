@@ -17,13 +17,13 @@ export const RESUME_SORTING_GAME = 'RESUME_SORTING_GAME';
 export const resumeSortingGame = () => async dispatch => {
   const sessionId = localStorage.getItem(SESSION_ID_STORAGE_KEY);
   const { array } = await SortingGameApi.get(sessionId);
-  const gameState = await SortingGameApi.check(sessionId);
+  const { is_sorted } = await SortingGameApi.check(sessionId);
 
   dispatch({
     type: RESUME_SORTING_GAME,
     numbers: array,
     sessionId,
-    isSorted: gameState.is_sorted,
+    isSorted: is_sorted,
   });
 };
 
@@ -32,9 +32,9 @@ export const SAVE_ORDER = 'SAVE_ORDER';
 export const saveOrder = numbers => async (dispatch, getState) => {
   const sessionId = getState().sortingGame.sessionId;
   await SortingGameApi.update(sessionId, numbers);
-  const gameState = await SortingGameApi.check(sessionId);
+  const { is_sorted } = await SortingGameApi.check(sessionId);
 
-  dispatch({ type: SAVE_ORDER, numbers, isSorted: gameState.is_sorted });
+  dispatch({ type: SAVE_ORDER, numbers, isSorted: is_sorted });
 };
 
 export const EXIT_GAME = 'EXIT_GAME';
