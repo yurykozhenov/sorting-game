@@ -6,7 +6,19 @@ import SortingItem from '../SortingItem/SortingItem';
 
 import './SortingCanvas.css';
 
-class SortingCanvas extends Component {
+const type = 'SortingItem';
+
+const itemTarget = {
+  drop({ numbers, saveOrder }) {
+    saveOrder(numbers);
+  },
+};
+
+@DragDropContext(TouchBackend({ enableMouseEvents: true }))
+@DropTarget(type, itemTarget, connect => ({
+  connectDropTarget: connect.dropTarget(),
+}))
+export default class SortingCanvas extends Component {
   findItem = searchNumber => {
     const { numbers } = this.props;
 
@@ -34,19 +46,3 @@ class SortingCanvas extends Component {
     );
   }
 }
-
-const type = 'SortingItem';
-
-const itemTarget = {
-  drop({ numbers, saveOrder }) {
-    saveOrder(numbers);
-  },
-};
-
-const dropCollect = connect => ({
-  connectDropTarget: connect.dropTarget(),
-});
-
-export default DragDropContext(TouchBackend({ enableMouseEvents: true }))(
-  DropTarget(type, itemTarget, dropCollect)(SortingCanvas),
-);

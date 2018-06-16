@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class SortingGameApi {
+export default class SortingGameApi {
   static async create() {
     return (await axios.post(`/games`)).data;
   }
@@ -17,5 +17,3 @@ class SortingGameApi {
     return axios.patch(`/games`, { id, array });
   }
 }
-
-export default SortingGameApi;

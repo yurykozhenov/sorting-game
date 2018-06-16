@@ -3,29 +3,6 @@ import { DragSource, DropTarget } from 'react-dnd';
 
 import './SortingItem.css';
 
-class SortingItem extends Component {
-  render() {
-    const {
-      number,
-      isDragging,
-      connectDragSource,
-      connectDropTarget,
-    } = this.props;
-
-    return (
-      connectDragSource &&
-      connectDropTarget &&
-      connectDragSource(
-        connectDropTarget(
-          <div className={`sorting-item${isDragging ? ' dragging' : ''}`}>
-            {number}
-          </div>,
-        ),
-      )
-    );
-  }
-}
-
 const type = 'SortingItem';
 
 const itemSource = {
@@ -58,15 +35,32 @@ const itemTarget = {
   },
 };
 
-const dragCollect = (connect, monitor) => ({
+@DropTarget(type, itemTarget, connect => ({
+  connectDropTarget: connect.dropTarget(),
+}))
+@DragSource(type, itemSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
-});
+}))
+export default class SortingItem extends Component {
+  render() {
+    const {
+      number,
+      isDragging,
+      connectDragSource,
+      connectDropTarget,
+    } = this.props;
 
-const dropCollect = connect => ({
-  connectDropTarget: connect.dropTarget(),
-});
-
-export default DropTarget(type, itemTarget, dropCollect)(
-  DragSource(type, itemSource, dragCollect)(SortingItem),
-);
+    return (
+      connectDragSource &&
+      connectDropTarget &&
+      connectDragSource(
+        connectDropTarget(
+          <div className={`sorting-item${isDragging ? ' dragging' : ''}`}>
+            {number}
+          </div>,
+        ),
+      )
+    );
+  }
+}

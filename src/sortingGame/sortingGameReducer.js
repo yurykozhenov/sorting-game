@@ -9,7 +9,7 @@ import {
 const sessionId = localStorage.getItem(SESSION_ID_STORAGE_KEY);
 const initialState = { sessionId, numbers: [], isSorted: false };
 
-const sortingGameReducer = (state = initialState, action) => {
+export default function sortingGameReducer(state = initialState, action) {
   switch (action.type) {
     case INIT_SORTING_GAME:
       return {
@@ -32,6 +32,4 @@ const sortingGameReducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
-
-export default sortingGameReducer;
+}

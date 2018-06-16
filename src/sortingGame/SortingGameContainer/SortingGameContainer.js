@@ -11,7 +11,20 @@ import {
 } from '../sortingGameActions';
 import SortingGame from '../SortingGame/SortingGame';
 
-class SortingGameContainer extends Component {
+@connect(
+  state => ({
+    sessionId: state.sortingGame.sessionId,
+    numbers: state.sortingGame.numbers,
+    isSorted: state.sortingGame.isSorted,
+  }),
+  {
+    exitGame,
+    initSortingGame,
+    resumeSortingGame,
+    saveOrder,
+  },
+)
+export default class SortingGameContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -62,21 +75,3 @@ class SortingGameContainer extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  sessionId: state.sortingGame.sessionId,
-  numbers: state.sortingGame.numbers,
-  isSorted: state.sortingGame.isSorted,
-});
-
-const mapDispatchToProps = {
-  exitGame,
-  initSortingGame,
-  resumeSortingGame,
-  saveOrder,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SortingGameContainer);
