@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 
-import './SortingItem.css';
+import './SortingItem.scss';
 
 const type = 'SortingItem';
 

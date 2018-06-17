@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './SortingGame.css';
+import './SortingGame.scss';
 import SortingCanvas from '../SortingCanvas/SortingCanvas';
 
 export default function SortingGame({

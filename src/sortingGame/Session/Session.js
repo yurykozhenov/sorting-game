@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Session.css';
+import './Session.scss';
 
 export default function Session({ initSortingGame }) {
   return (

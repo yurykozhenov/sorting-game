@@ -4,7 +4,7 @@ import TouchBackend from 'react-dnd-touch-backend';
 
 import SortingItem from '../SortingItem/SortingItem';
 
-import './SortingCanvas.css';
+import './SortingCanvas.scss';
 
 const type = 'SortingItem';
 
