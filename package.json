@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rematch/core": "^1.0.0-beta.2",
     "axios": "^0.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "immutability-helper": "^2.7.0",

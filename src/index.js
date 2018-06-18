@@ -1,23 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
+import { init } from '@rematch/core';
 
 import './index.scss';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import rootReducer from './rootReducer';
 import './apiUrlInterceptor';
+import sortingGame from './sortingGame/sortingGame';
 
 const loggerMiddleware = createLogger();
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunkMiddleware, loggerMiddleware),
-);
+export const store = init({
+  models: {
+    sortingGame,
+  },
+  redux: {
+    middlewares: [loggerMiddleware],
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>

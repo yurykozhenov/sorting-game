@@ -10,7 +10,7 @@ const type = 'SortingItem';
 
 const itemTarget = {
   drop({ numbers, saveOrder }) {
-    saveOrder(numbers);
+    saveOrder({ numbers });
   },
 };
 

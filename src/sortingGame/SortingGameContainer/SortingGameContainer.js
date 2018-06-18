@@ -3,12 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import update from 'immutability-helper';
 
-import {
-  exitGame,
-  initSortingGame,
-  resumeSortingGame,
-  saveOrder,
-} from '../sortingGameActions';
 import SortingGame from '../SortingGame/SortingGame';
 
 @connect(
@@ -17,12 +11,12 @@ import SortingGame from '../SortingGame/SortingGame';
     numbers: state.sortingGame.numbers,
     isSorted: state.sortingGame.isSorted,
   }),
-  {
-    exitGame,
-    initSortingGame,
-    resumeSortingGame,
-    saveOrder,
-  },
+  dispatch => ({
+    exitGame: dispatch.sortingGame.exitGame,
+    initSortingGame: dispatch.sortingGame.initSortingGame,
+    resumeSortingGame: dispatch.sortingGame.resumeSortingGame,
+    saveOrder: dispatch.sortingGame.saveOrder,
+  }),
 )
 export default class SortingGameContainer extends Component {
   constructor(props) {
